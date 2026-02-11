@@ -45,10 +45,15 @@ With time-series forecasting, we want to prevent the model from cheating by catc
 ## 5. Results & Model Diagnostics
 **Final Metric: 6.76% Mean Absolute Percentage Error (MAPE)**
 
-### The Hierarchy of Importance
-* **The Weekly Heartbeat (Lag_7):** Importance of **0.30**. These result indicate that travel is fundamentally a weekly habit, where the best predictor of a Friday rush is the previous Friday.
+<div align="center">
+  <img src="TSA_Passenger_Volume_Forecast.png" width="800" alt="Forecast Results">
+  <p><i>Figure 1: Comparsion of Model Predictions and Actual Volume</i></p>
+</div>
 
-* **Theory vs. Reality:** Google Trends and Oil prices (Importance: **0.03–0.04**) acted as fine-tuning modifiers rather than primary drivers. In short, while search intent and fuel surchages can signal that people want to travel, the calendar and historical rhythms dictate when they actually show up at the airport.
+### The Hierarchy of Importance
+* **The Weekly Heartbeat (Lag_7):** Importance of **0.30**. These results indicate that travel is fundamentally a weekly habit, where the best predictor of a Friday rush is the previous Friday.
+
+* **Theory vs. Reality:** Google Trends and Oil prices (Importance: **0.03–0.04**) acted as fine-tuning modifiers rather than primary drivers. In short, while search intent and fuel surcharges can signal that people want to travel, the calendar and historical rhythms dictate when they actually show up at the airport.
 
 ### Residual Analysis (Identifying Weaknesses)
 * **Stationary Holidays:** The model over-predicted early January. It seems to have seen that the Holiday Flag and expected a rush, failing to realize travelers often stay put for several days once they reach their New Year destination.
