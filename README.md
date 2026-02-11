@@ -28,6 +28,11 @@ The key to the model’s performance lies in three categories of features: **Cyc
   
 3.  **Leading Indicators:** I used search volumes for "flights", "expedia", "trivago", and "vacation" as a **1–3 week early-warning system**. Additionally, oil prices were used to approximate jet fuel costs passed on to consumers.
 
+<div align="center">
+  <img src="feature_importance.png" width="800" alt="Forecast Results">
+  <p><i>Figure 1: Measure of the importance of each feature</i></p>
+</div>
+
 Regarding why so few features, though it’s tempting to add dozens of search terms and economic terms, the simplest explanation, involving the fewest assumptions, can often produce the best results. Adding too many low-importance features (like "car rental" searches) introduces "noise" that can dilute the high-impact signal of features like Lag_7 (importance of around 0.30). By starting with a sparse, high-impact feature set, I created a minimalistic model that was easier to debug. It allowed me to identify exactly where the model was failing (like the College Move-in dates) without wondering if a random, unimportant feature was confusing the training process.
 
 ---
@@ -47,7 +52,7 @@ With time-series forecasting, we want to prevent the model from cheating by catc
 
 <div align="center">
   <img src="TSA_Passenger_Volume_Forecast.png" width="800" alt="Forecast Results">
-  <p><i>Figure 1: Comparsion of Model Predictions and Actual Volume</i></p>
+  <p><i>Figure 2: Comparsion of Model Predictions and Actual Volume</i></p>
 </div>
 
 ### The Hierarchy of Importance
@@ -56,6 +61,12 @@ With time-series forecasting, we want to prevent the model from cheating by catc
 * **Theory vs. Reality:** Google Trends and Oil prices (Importance: **0.03–0.04**) acted as fine-tuning modifiers rather than primary drivers. In short, while search intent and fuel surcharges can signal that people want to travel, the calendar and historical rhythms dictate when they actually show up at the airport.
 
 ### Residual Analysis (Identifying Weaknesses)
+
+<div align="center">
+  <img src="residual.png" width="800" alt="Forecast Results">
+  <p><i>Figure 3: Residual map showing the variance between TSA actuals and recursive predictions</i></p>
+</div>
+
 * **Stationary Holidays:** The model over-predicted early January. It seems to have seen that the Holiday Flag and expected a rush, failing to realize travelers often stay put for several days once they reach their New Year destination.
 * **The College Rush:** Under-predictions in late August/early September correlate to **College Move-in windows**, which are regional and not captured by national federal holiday calendars.
 * **The Thanksgiving Dip:** The model missed the specific "quietness" of Thanksgiving Day. Future iterations could add a "Holiday-Eve" vs. "Holiday-Day" option, noting that the day of major holidays is often the quietest.
